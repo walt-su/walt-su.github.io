@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TTTest</title>
+	<link rel="stylesheet" type="text/css" href="C:\Users\Administrator\iCloudDrive\21_PHD\106_Web\test.css">
+	<link rel="stylesheet" type="text/css" href="C:\Users\Administrator\iCloudDrive\21_PHD\106_Web\test1.css">
+	
+ 	<link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
+	<link href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css" rel="stylesheet">
+	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.2/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.10.5/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+
+	<meta name="description" content="Free Web tutorials">
+	<meta name="keywords" content="HTML,CSS,XML,JavaScript">
+	<meta name="author" content="John Doe">
+
+
+
+
+ 	<style>
+	a:link, a:visited {
+	    color: white; 
+	    background-color: #f44336; 
+	    text-decoration: none;
+	    text-align: center;
+	    font-size: 30px;
+	    margin: 0 0 0 900px;
+	    padding: 14px 25px;
+	    display: inline-block;
+	}
+
+	a:hover {
+	    background-color: red;
+	}
+
+	a:active {
+	    background-color: red;
+	}
+	
+	li {
+    float: left;
+	}
+	
+	ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 20;
+    overflow: hidden;
+    background-color: #333333;
+	}
+
+	</style>
+
+	<!--link rel="stylesheet" type="text/css" href="/Users/walt/Library/Mobile Documents/com~apple~CloudDocs/21_PHD/106_Web/test.css"-->
+
+</head>
+<body>
+
+
+<table id="table1">
+    <thead>
+        <tr>
+            <th>股票名稱</th>
+            <th>股票名稱</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>台積電</td>
+            <td>2330</td>
+        </tr>
+        <tr>
+            <td>台積電</td>
+            <td>2330</td>
+        </tr>
+        <tr>
+            <td>台積電</td>
+            <td>2330</td>
+        </tr>
+        <tr>
+            <td>台積電</td>
+            <td>2330</td>
+        </tr>
+        <tr>
+            <td>台積電</td>
+            <td>2330</td>
+        </tr>
+        <tr>
+            <td>台積電</td>
+            <td>2330</td>
+        </tr>
+        <tr>
+            <td>台積電</td>
+            <td>2330</td>
+        </tr>
+        <tr>
+            <td>台積電</td>
+            <td>2330</td>
+        </tr>
+        <tr>
+            <td>台積電</td>
+            <td>2330</td>
+        </tr>
+        <tr>
+            <td>台積電</td>
+            <td>2330</td>
+        </tr>
+        <tr>
+            <td>台積電</td>
+            <td>2330</td>
+        </tr>
+        <tr>
+            <td>中華電</td>
+            <td>2412</td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="https://tw.yahoo.com/" style="text-decoration: none" target="_blank">Yahoo!</a>
+<br>
+
+<svg style="border: 1px solid" width="300px" height="300px" viewbox="0 0 300 300">
+	<rect x="0" y="0" width="100" height="100" fill="red" stroke="black" stroke-width="5" stroke-dasharray="10 3 3 3">
+	<animate attributeName="x" from="0" to="200" dur="3s" repeatCount="*9"/>
+</svg>
+	<br>
+<svg style="border: 1px solid" width="300px" height="300px" viewbox="10 10 10 100"><path d="M200,0 L0,200 L200,200" transform="rotate(30 100 00)"></svg>
+
+<h1>My First Google Map</h1>
+
+<!--div id="map" style="width:400px;height:400px;background:yellow"></div-->
+
+<script>
+function myMap() {
+var mapOptions = {
+    center: new google.maps.LatLng(23.0048321,120.22213699999998),
+    zoom: 18,
+    mapTypeId: google.maps.MapTypeId.HYBRID
+}
+var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0DgVTKtpXVvHWHypS4YTs56NDVDryB_M&callback=myMap"></script>
+<!--
+To use this code on your website, get a free API key from Google.
+Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
+-->
+
+
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
+}
+
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+</script>
+<!--script src="C:\Users\Administrator\iCloudDrive\21_PHD\106_Web\jquery-3.2.1.js"></script-->
+
+<script>
+
+$(document).ready(function(){
+    $("#table1").dataTable();
+    });
+</script>
+
+<script> 
+	d3.select("body");
+	d3.select("body").style({background:"white"});
+</script>
+
+
+<div class="divt" style="width:100px; height:100px">div1</div>
+<div class="divt">div2</div>
+<div class="divt">div3</div>
+
+<script>
+	d3.selectAll("div")
+	.data(["green","red","pink"])
+	.style({
+		background:function(d){
+			return d;
+		}
+	})
+	.text(
+		function(d, i){
+			return i;	
+		})
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
