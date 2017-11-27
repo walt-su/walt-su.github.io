@@ -1,14 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+  margin: 0;
+}
+
+
+div.header{
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+}
+
+
+ul.nav_1{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    position: fixed;
+    width: 100%;
+
+}
+
+li a {
+
+    float: left;
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+
+}
+
+li a:hover{
+    background-color: #4CAF50;
+    color:white;
+}
+
+div {
+    padding: 30px 16px;
+    height: 100px;
+}
+
+
+
+.active {
+    background-color: #4CAF50;
+}
+
+div.column {
+    float: left;
+    width: 33%;
+    padding: 15px;
+}
+
+/* Clear floats after the columns */
+div.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+</style>
 
 </head>
+
 <body>
 
-<p style="color: red; font-size: 20px">
-    suck 鴻哥， code here. There is no execute. 
-</p>
+<div class="header">
+  <h1>運動訊息交易所</h1>
+</div>
+
+
+<ul class="nav_1">
+  <li><a class="active" href="#default.asp">Home</a></li>
+  <li><a href="#news.asp">預測賽事</a></li>
+  <li><a href="#contact.asp">購買名牌</a></li>
+  <li><a href="#about.asp">分析析專區</a></li>
+  <li><a href="#about.asp">討論區</a></li>
+  <li><a href="#about.asp">數據分享區</a></li>
+  <li><a href="#about.asp">排行榜</a></li>
+  <li><a href="#about.asp">帳號管理</a></li>
+</ul>
+
+<div class="row">
+  <div class="column">
+    <h2>Column</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+  </div>
+  <div class="column">
+    <h2>Column</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+  </div>
+  <div class="column">
+    <h2>Column</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+  </div>
+</div>
 
 </body>
 </html>
