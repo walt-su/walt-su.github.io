@@ -14,7 +14,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-
 <style>
 
   #wrapper{
@@ -27,13 +26,34 @@
       color: black; /* logo */
   }
 
-  .nav-item{
-    font-size: 16px;
-
-
-
+  .navbar-nav li a{
+      display: block;
+      color: white !important;
+      text-align: center;
+      margin: 5px;
+      padding: 10px 10px 10px 10px;
+      font-size: 16px;
+      text-decoration: none;
+  }
+  .navbar-nav li div a{
+      color: black !important;
+      text-align: center;
+      margin-left: 0 px;
+      padding: 0px 0px;
+      font-size: 16px;
+      text-decoration: none;
   }
 
+  .navbar-nav li a:hover{
+      color: #4CAF50 !important;
+      background-color: #fff !important;
+  }
+
+
+  .navbar-nav li a:hover:not(.active) {
+      background-color: #111;
+
+  }
 
   .panel-heading{
     text-align: left;
@@ -65,7 +85,6 @@
     width: 78px !important;
   }
 
-
 </style>
 
 
@@ -81,19 +100,18 @@
       <div style="font-family:'Segoe UI',Arial,sans-serif; margin-top: 60px"> THE MOST EXCITING SPORTS INFORMATION EXCHANGE </div>
       <!--li style="margin-top: 30px"><a href="#" style="color: green"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       <li><a href="#" style="color: green"><span class="glyphicon glyphicon-log-in"></span> Login</a></li-->
-    </div>
+ </div>
 
-
-<nav class="navbar navbar-expand-sm bg-dark sticky-top navbar-dark">
+<nav class="navbar navbar-expand-sm bg-dark sticky-top" >
   <a class="navbar-brand" href="#">Logo</a>
-  <ul class="navbar-nav">
+  <ul class="navbar-nav" style="height:-70%">
     <li class="nav-item"><a class="nav-link" href="#default.asp">Home</a></li>
     <li class="nav-item"><a class="nav-link" href="#news.asp">預測賽事</a></li>
     <li class="nav-item"><a class="nav-link" href="#contact.asp">購買名牌</a></li>
-    <li class="nav-item"><a class="nav-link" href="#about.asp">分析師區</a></li>
-    <li class="nav-item"><a class="nav-link" href="#about.asp">討論專區</a></li>
+    <li class="nav-item"><a class="nav-link" href="#about.asp">分析師專區</a></li>
+    <li class="nav-item"><a class="nav-link" href="#about.asp">討論區</a></li>
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">數據專區</a>
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Dropdown</a>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="#">Link 1</a>
           <a class="dropdown-item" href="#">Link 2</a>  
@@ -159,7 +177,7 @@
 
 
 
-  <div class="col-sm-8 content" style="padding:0px;height:1500px;"> 
+  <div class="col-sm-8 content" style="padding:0px;height:1500px;">	
 
     <div class="column1">
       <h2>Column</h2>
