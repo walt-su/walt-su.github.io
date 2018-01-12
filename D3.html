@@ -30,9 +30,11 @@
 </head>
 <body>
 
-	<div class="bar"> 
-	</div>
-	<p> Hey! Im here!</p>
+
+	<button class="ui button">
+	  Hey! Im here!
+	</button>
+
 	
 	<script type="text/javascript">
 		var dataset = [1,3,5,7,11]
@@ -54,10 +56,11 @@
 					return "green"
 				}
 			});
+			*/
 
 
 var dataset1 = [5,10,15,20,25, 18, 33, 5, 10, 20, 17, 22,
-			   10,15,20,25, 18, 33, 5, 10, 20, 17, 22]; */
+			   10,15,20,25, 18, 33, 5, 10, 20, 17, 22];
 
 //圓形
 /*
@@ -140,7 +143,7 @@ var dataset1 = [5,10,15,20,25, 18, 33, 5, 10, 20, 17, 22,
 				.attr("fill", "white")
 				.attr("text-anchor", "middle");
 
-			d3.select("p").on("click", function(){
+			d3.select("button").on("click", function(){
 	
 				dataset1 = [15,210,315,120,125, 218, 33, 111, 210, 220, 17, 22,
 			   			    102,125,20,25, 218, 233, 35, 122, 320, 317, 22];
