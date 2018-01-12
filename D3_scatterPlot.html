@@ -360,14 +360,15 @@ var dataset1 = [5,10,15,20,25, 18, 33, 5, 10, 20, 17, 22,
 							  .scale(Xscale);
 				var yAxis = d3.axisLeft()
 							  .scale(Yscale);
-					svg_cir.append("g")
-						   .attr("class", "axis")
-						   .attr("transform", "translate(0," + (h-padding) + ")")
+					
+					svg_cir.select(".xaxis")
+						   .transition()
+						   .duration(1500)
 						   .call(xAxis);
 
-					svg_cir.append("g")
-						   .attr("class", "axis")
-						   .attr("transform", "translate(" + (padding-15) + ", 0)")
+					svg_cir.select(".yaxis")
+						   .transition()
+						   .duration(1500)
 						   .call(yAxis);
 
 				});
@@ -445,12 +446,12 @@ var dataset1 = [5,10,15,20,25, 18, 33, 5, 10, 20, 17, 22,
 
 
 			svg_cir.append("g")
-				   .attr("class", "axis")
+				   .attr("class", "xaxis")
 				   .attr("transform", "translate(0," + (h-padding) + ")")
 				   .call(xAxis);
 
 			svg_cir.append("g")
-				   .attr("class", "axis")
+				   .attr("class", "yaxis")
 				   .attr("transform", "translate(" + (padding-15) + ", 0)")
 				   .call(yAxis);
 	
