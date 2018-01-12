@@ -291,7 +291,7 @@ var dataset1 = [5,10,15,20,25, 18, 33, 5, 10, 20, 17, 22,
 					return Xscale_or(i) + Xscale_or.bandwidth()/2;
 				})
 				.attr("y", function(d){
-					return h - Yscale_or(d);
+					return h - Yscale_or(d)-3;
 				})
 				.attr("font-family", "sans-serif")
 				.attr("font-size", "11px")
@@ -324,7 +324,7 @@ var dataset1 = [5,10,15,20,25, 18, 33, 5, 10, 20, 17, 22,
 				rect.selectAll("text")
 					.data(dataset1)
 					.transition()
-			   		.duration(5000)
+			   		.duration(4000)
 					.text(function(d){
 						return d;
 					})
