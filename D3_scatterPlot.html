@@ -344,10 +344,10 @@ var dataset1 = [5,10,15,20,25, 18, 33, 5, 10, 20, 17, 22,
 						   	d3.select(this)
 						   	  .attr("fill", "black")
 						   	  .attr("r", function(d){
-						   	return Rscale(d[1]);
+						   		return Rscale(d[1]);
+						   		});
 						   });
-						   
-						   
+
 
 					svg_cir.selectAll("text")
 						   .data(dataset2)
