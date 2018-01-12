@@ -331,6 +331,9 @@ var dataset1 = [5,10,15,20,25, 18, 33, 5, 10, 20, 17, 22,
 				rect.selectAll("text")
 					.data(dataset1)
 					.transition()
+			   		.delay(function(d, i){
+			   			return i*100;
+			   		})
 			   		.duration(4000)
 					.text(function(d){
 						return d;
