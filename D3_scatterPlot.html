@@ -356,6 +356,20 @@ var dataset1 = [5,10,15,20,25, 18, 33, 5, 10, 20, 17, 22,
 						   .attr("font-family", "sans-serif")
 						   .attr("font-size", "11px");
 
+				var yAxis = d3.axisLeft()
+							  .scale(Yscale);
+
+
+					svg_cir.append("g")
+						   .attr("class", "axis")
+						   .attr("transform", "translate(0," + (h-padding) + ")")
+						   .call(xAxis);
+
+					svg_cir.append("g")
+						   .attr("class", "axis")
+						   .attr("transform", "translate(" + (padding-15) + ", 0)")
+						   .call(yAxis);
+
 				});
 				
 
