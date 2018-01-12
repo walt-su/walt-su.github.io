@@ -331,6 +331,8 @@ var dataset1 = [5,10,15,20,25, 18, 33, 5, 10, 20, 17, 22,
 						   .duration(1500)
 						   .on("start", function(){
 						   	d3.select(this)
+						   	  .transition()
+						      .duration(1500)
 						   	  .attr("fill", "red")
 						   	  .attr("r", 3);
 						   })
