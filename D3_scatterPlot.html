@@ -326,7 +326,7 @@ var dataset1 = [5,10,15,20,25, 18, 33, 5, 10, 20, 17, 22,
 					svg_cir.selectAll("circle")
 						   .data(dataset2)
 						   .transition()
-						   .duration(1000)
+						   .duration(1500)
 						   .attr("cx", function(d){
 						   	return Xscale(d[0]);
 						   })
@@ -340,7 +340,7 @@ var dataset1 = [5,10,15,20,25, 18, 33, 5, 10, 20, 17, 22,
 					svg_cir.selectAll("text")
 						   .data(dataset2)
 						   .transition()
-						   .duration(1000)
+						   .duration(1500)
 						   .text(function(d) {
 						   	return d[0] + "," + d[1];
 						   })
