@@ -117,8 +117,8 @@
     數據專區
     <i class="dropdown icon"></i>
       <div class="menu">
-        <a class="item" href="https://walt-su.github.io/D3.html"><i class="edit icon"></i> Histogram test </a>
-        <a class="item"><i class="globe icon"></i> MLB </a>
+        <a class="item" href="https://walt-su.github.io/D3_histogram.html"><i class="edit icon"></i> Histogram test </a>
+        <a class="item" href="https://walt-su.github.io/D3_scatterPlot.html"><i class="globe icon"></i> ScatterPlot test </a>
         <a class="item"><i class="settings icon"></i> Soccer </a>
       </div>
     </div>
@@ -298,9 +298,8 @@ var dataset1 = [5,10,15,20,25, 18, 33, 5, 10, 20, 17, 22,
 				.attr("fill", "white")
 				.attr("text-anchor", "middle");
 
-			d3.select("button.ui").on("click", function(){
-	
 
+			d3.select("button.ui").on("click", function(){
 				dataset1 =[];
 				for(var i = 0; i <= 23; i++) {
 				var new1 = Math.floor(Math.random() * 100);
