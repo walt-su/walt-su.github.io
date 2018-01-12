@@ -331,7 +331,7 @@ var dataset1 = [5,10,15,20,25, 18, 33, 5, 10, 20, 17, 22,
 						   .duration(1500)
 						   .on("start", function(){
 						   	d3.select(this)
-						   	  .attr("fill", "magenta")
+						   	  .attr("fill", "red")
 						   	  .attr("r", 3);
 						   })
 						   .attr("cx", function(d){
@@ -343,11 +343,11 @@ var dataset1 = [5,10,15,20,25, 18, 33, 5, 10, 20, 17, 22,
 						   .on("end", function(){
 						   	d3.select(this)
 						   	  .attr("fill", "black")
-						   	  .attr("r", 2);
+						   	  .attr("r", function(d){
+						   	return Rscale(d[1]);
 						   });
-						   //.attr("r", function(d){
-						   //	return Rscale(d[1]);
-						   //})
+						   
+						   
 
 					svg_cir.selectAll("text")
 						   .data(dataset2)
