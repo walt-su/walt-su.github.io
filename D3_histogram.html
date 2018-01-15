@@ -399,6 +399,68 @@
 		  	});
 
 
+			//////// Del one data /////////
+  			d3.select("button#del").on("click", function(){
+
+  				dataset3.shift();
+  				Xscale_or.domain(d3.range(dataset3.length))
+  				Yscale_or.domain([0, d3.max(dataset3, function(d){ return d.value; })])
+
+  				var bar2 = rect.selectAll("rect")
+  							   .data(dataset3, key)
+  							   .exit()
+  							   .transition()
+  							   .duration(200)
+  							   .attr("x", -Xscale_or.bandwidth())
+  							   .remove()
+
+  				var bar2 = rect.selectAll("rect")
+  							   .data(dataset3, key)
+  							   .transition()
+  							   .duration(500)
+  							   .attr("x", function(d, i){
+									return Xscale_or(i);
+							   })
+							   .attr("y", function(d){
+									return h - Yscale_or(d.value) - 20;
+							   })
+							   .attr("width", Xscale_or.bandwidth())
+							   .attr("height", function(d){
+							 		return Yscale_or(d.value);
+							   })
+							   .attr("fill", function(d){
+									return "rgb(0, 0, " + (d.value * 10) + ")";
+							   });
+
+  				var text = rect.selectAll("text")
+  							   .data(dataset3, key)
+  							   .exit()
+  							   .transition()
+  							   .duration(200)
+  							   .attr("x", -Xscale_or.bandwidth())
+  							   .remove()
+
+  				var text = rect.selectAll("text")
+  							   .data(dataset3, key)
+  							   .transition()
+  							   .duration(500)
+								.text(function(d){
+									return d.value;
+								})
+								.attr("x", function(d, i){
+									return Xscale_or(i) + Xscale_or.bandwidth()/2;
+								})
+								.attr("y", function(d){
+									return h - Yscale_or(d.value);
+								})
+								.attr("font-family", "sans-serif")
+								.attr("font-size", "11px")
+								.attr("fill", "white")
+								.attr("text-anchor", "middle");
+
+  			});
+
+
 
 		
 	</script>
