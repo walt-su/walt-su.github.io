@@ -191,6 +191,15 @@
 
 </div>
 
+<div class="col-sm-5 content" style="padding:0px;height:800px;"> 
+
+	<button id = "change" class="ui primary button">Change data</button>
+	<button id = "add" class="ui primary button">Add data</button>
+	<button id = "del" class="ui primary button">Delete data</button>
+
+</div>
+
+
 	<script type="text/javascript">
 
 		var dataset3 = [{key:0, value:5},
@@ -225,7 +234,7 @@
 					      .domain([0, d3.max(dataset3, function(d){ return d.value; })])
 					      .range([0, h - padding]);
 
-		var rect = d3.select("div.col-sm-8").append("svg")
+		var rect = d3.select("div.col-sm-5").append("svg")
 					 .attr("width", w)
 					 .attr("height", h);
 
