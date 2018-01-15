@@ -315,8 +315,15 @@
 			//////// Add one more/////////
   			d3.select("button#add").on("click", function(){
   				
-  				var newNum3 = Math.floor(Math.random() * 50);
-  				var key_max = d3.max(dataset3, function(d){ return d.key; }) + 1
+  				var newNum3 = Math.floor(Math.random() * 50); 
+				var key_max = d3.max(dataset3, function(d){ return d.key; }) + 1
+
+  				if( key_max == NaN) {
+  					key_max = 0;
+  					return key_max;
+  				} else {
+  					return key_max;
+  				};
 
   				dataset3.push({key: key_max, value: newNum3});
 
