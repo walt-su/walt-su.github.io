@@ -224,7 +224,7 @@
 					      .domain([0, d3.max(dataset3, function(d){ return d.value; })])
 					      .range([0, h - padding]);
 
-		var rect = d3.select("body").append("svg")
+		var rect = d3.select("div.col-sm-8").append("svg")
 					 .attr("width", w)
 					 .attr("height", h);
 
@@ -266,8 +266,8 @@
 
 
 
-
-			d3.select("#change").on("click", function(){
+			//////// Change data /////////
+			d3.select("button#change").on("click", function(){
 				current_num = dataset3.length
 				dataset3 =[];
 				for(var i = 0; i <= current_num; i++) {
@@ -315,6 +315,89 @@
 					.attr("text-anchor", "middle");
 				});
 				
+
+			//////// Add one more/////////
+  			d3.select("p.addNewbar").on("click", function(){
+  				
+  				var newNum3 = Math.floor(Math.random() * 50);
+  				var key_max = d3.max(dataset3, function(d){ return d.key; }) + 1
+
+  				dataset3.push({key: key_max, value: newNum3});
+
+   				Xscale_or.domain(d3.range(dataset3.length))
+  				Yscale_or.domain([0, d3.max(dataset3, function(d){ return d.value; })])
+
+
+  				var bar1 = rect.selectAll("rect")
+  							   .data(dataset3, key)
+  					bar1.enter() //只針對新的資料進行綁定
+  						.append("rect")
+  						.attr("x", w)  //新進BAR放在整個區問外，等待進入。
+  						.attr("y", function(d){
+  							return h - Yscale_or(d.value) - 20;
+  						})
+  						.attr("width", Xscale_or.bandwidth()) //寬度已加計新進BAR
+  						.attr("height", function(d){
+  							return Yscale_or(d.value);
+  						});
+
+
+  				var	bar1 = rect.selectAll("rect")
+
+  					bar1.data(dataset3, key)
+  						.transition()
+  						.duration(500)
+  						.attr("x", function(d, i){
+  							return Xscale_or(i)
+  						})
+  						.attr("y", function(d){
+  							return h - Yscale_or(d.value) - 20;
+  						})
+  						.attr("width", Xscale_or.bandwidth())
+  						.attr("height", function(d){
+  							return Yscale_or(d.value);
+  						})
+						.attr("fill", function(d){
+							return "rgb(0, 0, " + (d.value * 10) + ")";
+						});
+
+
+				var	text = rect.selectAll("text")
+						.data(dataset3, key)
+						.enter()
+						.append("text")
+						.text(function(d){
+							return d.value;
+						})
+						.attr("x", w)
+						.attr("y", function(d){
+							return h - Yscale_or(d.value);
+						})
+						.attr("font-family", "sans-serif")
+						.attr("font-size", "11px")
+						.attr("fill", "white")
+						.attr("text-anchor", "middle");		
+
+
+				var	text = rect.selectAll("text")
+						.data(dataset3, key)
+						.transition()
+						.duration(500)
+						.text(function(d){
+							return d.value;
+						})
+						.attr("x", function(d, i){
+							return Xscale_or(i) + Xscale_or.bandwidth()/2;
+						})
+						.attr("y", function(d){
+							return h - Yscale_or(d.value);
+						})
+						.attr("font-family", "sans-serif")
+						.attr("font-size", "11px")
+						.attr("fill", "white")
+						.attr("text-anchor", "middle");
+
+		  	});
 
 
 
