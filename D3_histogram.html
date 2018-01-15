@@ -278,7 +278,7 @@
 			};
 
 			   	var Yscale_or = d3.scaleLinear()
-					      .domain([0, d3.max(dataset3)])
+					      .domain([0, d3.max(dataset3, function(d){ return d.value; })])
 					      .range([0, h - padding]);
 
 			   	rect.selectAll("rect")
