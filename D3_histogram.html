@@ -268,8 +268,8 @@
 
 			//////// Change data /////////
 			d3.select("button#change").on("click", function(){
-				current_num = dataset3.length
-				last_num = d3.max(dataset3, function(d){ return d.key; }) 
+				var current_num = dataset3.length
+				var last_num = d3.max(dataset3, function(d){ return d.key; }) 
 				dataset3 =[];
 				
 				for(var i = 0; i < current_num; i++) {
