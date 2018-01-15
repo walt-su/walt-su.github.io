@@ -269,15 +269,13 @@
 			//////// Change data /////////
 			d3.select("button#change").on("click", function(){
 				current_num = dataset3.length
+				last_num = d3.max(dataset3, function(d){ return d.key; }) 
 				dataset3 =[];
-				for(var i = 0; i <= current_num; i++) {
+				for(var i = 0; i < current_num; i++) {
 				var new1 = Math.floor(Math.random() * 100);
-				dataset3.push(new1);
+				dataset3.push(key: last_num + i + 1, value: new1);
 				};
 
-				/*dataset1 = [15,210,315,120,125, 218, 33, 111, 210, 220, 17, 22,
-			   			    102,125,20,25, 218, 233, 35, 122, 320, 317, 22];*/
-			   	//上限被寫成hard code，這點看日後有沒有辦法改進。
 			   	var Yscale_or = d3.scaleLinear()
 					      .domain([0, d3.max(dataset3)])
 					      .range([0, h - padding]);
@@ -317,7 +315,7 @@
 				
 
 			//////// Add one more/////////
-  			d3.select("p.addNewbar").on("click", function(){
+  			d3.select("button#add").on("click", function(){
   				
   				var newNum3 = Math.floor(Math.random() * 50);
   				var key_max = d3.max(dataset3, function(d){ return d.key; }) + 1
