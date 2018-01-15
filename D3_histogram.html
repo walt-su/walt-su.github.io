@@ -318,7 +318,7 @@
   				var newNum3 = Math.floor(Math.random() * 50); 
 				var key_max = d3.max(dataset3, function(d){ return d.key; }) + 1
 
-  				if( isNan(key_max) ) {
+  				if( isNaN(key_max) ) {
   					key_max = 0;
   					return key_max;
   				} else {
