@@ -315,7 +315,24 @@
 					.attr("fill", "white")
 					.attr("text-anchor", "middle");
 				});
-				
+
+			//////// change color /////////
+
+			d3.selectAll("rect").on("mouseover", function(){
+				d3.select(this)
+				  .attr("fill", "orange");  
+			})
+			d3.selectAll("rect")
+			  .data(dataset3, key)
+			  .on("mouseout", function(d){
+				d3.select(this)
+				  .transition()
+				  .duration(300)
+				  .attr("fill", "rgb(0, 0, " + (d.value * 10) + ")");  
+			});
+
+
+
 
 			//////// Add one more/////////
   			d3.select("button#add").on("click", function(){
@@ -401,6 +418,22 @@
 						.attr("font-size", "11px")
 						.attr("fill", "white")
 						.attr("text-anchor", "middle");
+
+						//////// change color /////////
+
+						d3.selectAll("rect").on("mouseover", function(){
+							d3.select(this)
+							  .attr("fill", "orange");  
+						})
+						d3.selectAll("rect")
+						  .data(dataset3, key)
+						  .on("mouseout", function(d){
+							d3.select(this)
+							  .transition()
+							  .duration(300)
+							  .attr("fill", "rgb(0, 0, " + (d.value * 10) + ")");  
+						});
+
 
 		  	});
 
