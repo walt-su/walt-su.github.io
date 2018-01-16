@@ -505,6 +505,24 @@
   			});
 
 
+			//////// Order /////////
+			var sortBars = function(){
+				rect.selectAll("rect")
+					.sort(function(a,b){
+						return	d3.ascending(a,b);
+					})
+					.transition()
+					.duration(1000)
+					.attr("x", function(d, i){
+						return Xscale_or(i);
+					})
+			}
+
+
+
+			d3.selectAll("div#asc").on("click", function(){
+				sortBars();
+			})
 
 		
 	</script>
