@@ -507,9 +507,6 @@
 
 			//////// Order /////////
 			d3.select("button#asc").on("click", function(){
-				sortBars();
-
-
 				var sortBars = function(){
 					rect.selectAll("rect")
 						.sort(function(a,b){
@@ -521,7 +518,9 @@
 							return Xscale_or(i);
 						});
 				};
-				
+
+				sortBars();
+
 			});
 
 
