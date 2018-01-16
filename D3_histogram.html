@@ -515,14 +515,14 @@
 					.duration(1000)
 					.attr("x", function(d, i){
 						return Xscale_or(i);
-					})
-			}
+					});
+			};
 
 
 
-			d3.selectAll("button#asc").on("click", function(){
+			d3.select("button#asc").on("click", function(){
 				sortBars();
-			})
+			});
 
 		
 	</script>
