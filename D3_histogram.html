@@ -505,12 +505,11 @@
   			});
 
 
-			//////// Order /////////
-			d3.select("button#asc").on("click", function(){
+
 				var sortBars = function(){
 					rect.selectAll("rect")
 						.sort(function(a,b){
-							return	d3.ascending(a,b);
+							return	d3.ascending(a.value,b.value);
 						})
 						.transition()
 						.duration(1000)
@@ -518,6 +517,9 @@
 							return Xscale_or(i);
 						});
 				};
+
+			//////// Order /////////
+			d3.select("button#asc").on("click", function(){
 
 				sortBars();
 
