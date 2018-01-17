@@ -254,6 +254,10 @@
 				})
 				.attr("fill", function(d){
 					return "rgb(0, 0, " + (d.value * 10) + ")";
+				})
+				.append("title")
+				.text(function(d){
+					return d;
 				});
 
 			rect.selectAll("text")
