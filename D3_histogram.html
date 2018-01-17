@@ -185,13 +185,13 @@
 
 <div class="col-sm-3 content" style="padding:0px;height:800px;"> 
 
-	<button id = "change" class="ui primary button">Change data</button>
-	<button id = "add" class="ui primary button">Add data</button>
-	<button id = "del" class="ui primary button">Delete data</button>
-	
 	<div>
-		<button id = "asc" style= "margin-top: 5px;" class="ui primary button">Ascending</button>
-		<button id = "dec" class="ui primary button">Descending</button>
+		<button id = "add" class="ui primary button">Add bar</button>
+		<button id = "del" class="ui primary button">Del bar</button>
+	</div>	
+	<div>
+		<button id = "change" class="ui primary button">Re-create</button>
+		<button id = "sort" style= "margin-top: 5px;" class="ui primary button">Sort bar</button>
 	</div>
 
 </div>
@@ -508,11 +508,19 @@
   			});
 
 
+  				var sort_order = false;
 
 				var sortBars = function(){
+
+					sort_order = !sort_order
+
 					rect.selectAll("rect")
 						.sort(function(a,b){
-							return	d3.ascending(a.value,b.value);
+							if(sort_order){
+								return	d3.ascending(a.value,b.value);	
+							} else {
+								return	d3.descending(a.value,b.value);	
+							};						
 						})
 						.transition()
 						.duration(1000)	
@@ -522,7 +530,11 @@
 
 					rect.selectAll("text")
 						.sort(function(a,b){
-							return	d3.ascending(a.value,b.value);
+							if(sort_order){
+								return	d3.ascending(a.value,b.value);	
+							} else {
+								return	d3.descending(a.value,b.value);	
+							};
 						})
 						.transition()
 						.duration(1000)	
@@ -532,7 +544,7 @@
 				};
 
 			//////// Order /////////
-			d3.select("button#asc").on("click", function(){
+			d3.select("button#sort").on("click", function(){
 
 				sortBars();
 
