@@ -292,6 +292,9 @@
 			   		.data(dataset3, key)
 			   		.transition()
 			   		.duration(1000)
+					.attr("x", function(d, i){
+					return Xscale_or(i);
+					})
 			   		.attr("y", function(d){
 						return h - Yscale_or(d.value) -20;
 					})
