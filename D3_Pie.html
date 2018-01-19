@@ -255,23 +255,30 @@
 					return d.value;
 				});
 
+		d3.selectAll("g").on("mouseover", function(d){
+				color_temp = d3.select(this).select("path").attr("fill");
 
-		d3.selectAll("path").on("mouseover", function(d){
-				color_temp = d3.select(this).attr("fill");
-
-				d3.select(this)
+				d3.select(this).select("path")
 				  .attr("fill", function(d, i){
 				      return color(7);
 				  })
 				  .attr("d", arc2);
+
+				d3.select(this).select("text")
+				  .attr("font-size", 20);
 		});
-		d3.selectAll("path").on("mouseout", function(d){
-				d3.select(this)
+
+		d3.selectAll("g").on("mouseout", function(d){
+				d3.select(this).select("path")
 				  .attr("fill", function(d, i){
 				      return color_temp;
 				  })
 				  .attr("d", arc);
+
+				d3.select(this).select("text")
+				  .attr("font-size", 16);
 		});
+		
 		
 
 	</script>
