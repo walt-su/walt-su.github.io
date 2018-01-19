@@ -185,11 +185,6 @@
 
 <div class="col-sm-3 content" style="padding:0px;height:800px;"> 
 
-	<div>
-		<button id = "add" class="ui primary button">Add bar</button>
-		<button id = "del" class="ui primary button">Del bar</button>
-	</div>
-
 </div>
 
 <div class="col-sm-5 content" style="padding:0px;height:800px;"> 
@@ -197,6 +192,13 @@
 
 
 	<script type="text/javascript">
+
+		var w = 500;
+		var h = 500;
+		var padding = 50;
+
+
+
 
 		var dataset3 = [{key:0, value:5},
 						{key:1, value:10},
@@ -209,20 +211,69 @@
 						{key:8, value:25},
 						{key:9, value:15},
 						];
-
-		var key = function(d){
-			return d.key;
-		};
-
-// 長條圖
-		var w = 600;
-		var h = 500;
-		var padding = 50;
-		/* SVG for histogram*/
+		var dataset1 = [122,32,21,344,54,14];
 		
+		var pie = d3.pie();
+			pie(dataset1);
+		
+		var outerRadius = w/3.5;
+		var innerRadius = w/5;
+		var arc = d3.arc()
+					.outerRadius(outerRadius)
+					.innerRadius(innerRadius);
+		var arc2 = d3.arc()
+					.outerRadius(outerRadius*1.05)
+					.innerRadius(innerRadius);
+
+		var pie_chart = d3.select("body")
+						  .append("svg")
+						  .attr("width", w)
+						  .attr("height", h)
+
+		var arcs = pie_chart.selectAll("g.arc")
+		 					.data(pie(dataset1))
+		 					.enter()
+		 					.append("g")
+		 					.attr("class", "arc")
+		 					.attr("transform", "translate(" + (outerRadius+30) + ", " + (outerRadius+30) + ")");
+		
+		var color = d3.scaleOrdinal(d3.schemeCategory10);
+		var color_temp = "";
+
+			arcs.append("path")
+				.attr("fill", function(d, i){
+					return color(i);
+				})
+				.attr("d", arc);
+
+			arcs.append("text")
+				.attr("transform", function(d){
+					return "translate(" + arc.centroid(d) + ")";
+				})
+				.attr("text-anchor", "middle")
+				.text(function(d){
+					return d.value;
+				});
+
+
+		d3.selectAll("path").on("mouseover", function(d){
+				color_temp = d3.select(this).attr("fill");
+
+				d3.select(this)
+				  .attr("fill", function(d, i){
+				      return color(7);
+				  })
+				  .attr("d", arc2);
+		});
+		d3.selectAll("path").on("mouseout", function(d){
+				d3.select(this)
+				  .attr("fill", function(d, i){
+				      return color_temp;
+				  })
+				  .attr("d", arc);
+		});
 		
 
-		
 	</script>
   
 
