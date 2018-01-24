@@ -225,11 +225,8 @@
 
     };
 
-    var force = d3.force()
-                  .nodes(dataset.nodes)
-                  .links(dataset.edges)
-                  .size([w, h])
-                  .start();
+    var force = d3.forceSimulation(dataset.nodes)
+   
 		
 
 	</script>
