@@ -213,8 +213,6 @@
 //geography
     var geo = d3.selectAll("svg");
     var path = d3.geoPath();
-    var projection = d3.geo.albersUsa()
-                       .translate([500, 350]);
 
     d3.json("https://d3js.org/us-10m.v1.json", function(error, w){
       if(error) throw error;
