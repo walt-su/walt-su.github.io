@@ -29,11 +29,6 @@
 
 <style>
 
-  #wrapper{
-
-  }
-
-
   .navbar-brand, .navbar .navbar-brand {
       color: black; /* logo */
   }
@@ -53,17 +48,6 @@
    padding: 5px;
    text-align: center;
   }
-  .sport{
-    padding: 0px;
-    text-align: center;
-    margin: 10px -30px 30px 40px ;
-
-  }
-
-  .sport button{
-    padding: 16px;
-    margin: 0px;
-  }
 
   .content{
     margin: 5px;
@@ -77,27 +61,13 @@
     font-size: 15px;
   }
 
-        
-  .states :hover {
-    fill: orange;
-  }
-
-  .state-borders {
-    fill: none;
-    stroke: #fff;
-    stroke-width: 0.5px;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-    pointer-events: none;
-  }
-
-    .line {
+    .line_down {
       fill: none;
-      stroke: teal;
+      stroke: lightblue;
       stroke-width: 1.5;
     }
     
-    .line_lim {
+    .line_up {
       fill: none;
       stroke: red;
       stroke-width: 1.5;
@@ -110,7 +80,7 @@
 
 
     .area {
-      fill: teal;
+      fill: lightblue;
     }
 
 
@@ -229,6 +199,12 @@
 
 <div class="col-sm-8 content" style="padding:0px;height:800px;"> 
 
+  <div>
+    <button id = "weekly" class="ui primary button">Weekly</button>
+    <button id = "monthly" class="ui primary button">Monthly</button>
+    <button id = "yearly" class="ui primary button">Yearly</button>
+  </div>
+    
     <svg width="1000" height="700"></svg>
     <p> Note: the example comes from the book "Interactive Data Visualization For The Web" :)</p>
 
@@ -237,30 +213,36 @@
 	
 
   <script type="text/javascript">
-
-
+ 
   var width = 600;
   var height = 500;
   var padding = 50;
-  var dataset, xScale, yScale, xAxis, yAxis, line;  //Empty, for now
+  var dataset_week, dataset_month, dataset_year, xScale, yScale, xAxis, yAxis, line;  //Empty, for now
 
   var formatTime = d3.timeFormat("%Y");
-  var rowConverter = function(d){
+
+  var rowConverter_weekly = function(d){
+    return {
+      date: new Date(+d.Year, (+d.Mon - 1), d.Day), 
+      average: parseFloat(d.ppm)
+    };
+  };
+
+  var rowConverter_monthly = function(d){
     return {
       date: new Date(+d.Year, (+d.Month - 1)), 
       average: parseFloat(d.average)
     };
   };
 
+  var rowConverter_yearly = function(d){
+    return {
+      date: new Date(+d.Year), 
+      average: parseFloat(d.mean)
+    };
+  };
 
-  d3.csv("co2_data_clear.csv", rowConverter, function(error, d){
-    if(error){
-      console.log(error);
-    } else {
-      
-      dataset = d;
-      //console.log(dataset);
-      //console.table(dataset, ["date", "average"]);
+  var plot = function(dataset) {
 
       xScale = d3.scaleTime()
              .domain([
@@ -307,7 +289,6 @@
              .y0(function(d){ return yScale(350); })
              .y1(function(d){ return yScale(d.average); })
 
-
       // create SVG
       var svg = d3.select("svg")
             .attr("width", width)
@@ -316,12 +297,12 @@
       // create line
       svg.append("path")
          .datum(dataset)
-         .attr("class", "line")
+         .attr("class", "line line_down")
          .attr("d", line);
 
       svg.append("path")
          .datum(dataset)
-         .attr("class", "line line_lim")
+         .attr("class", "line line_up")
          .attr("d", line_lim);
 
       svg.append("line")
@@ -350,9 +331,6 @@
          .attr("class", "area_danger")
          .attr("d", area_danger);
 
-
-
-
       // create xAxis
       svg.append("g")
             .attr("class", "xaxis")
@@ -365,9 +343,169 @@
             .attr("transform", "translate(" + (padding-15) + ", 0)")
             .call(yAxis);
 
+  };
+
+  // First plot
+  d3.csv("co2_monthly_clear.csv", rowConverter_monthly, function(error, d){
+    if(error){
+      console.log(error);
+    } else {
+      dataset_month = d;
+      plot(dataset_month);
     };
   });
 
+// Replot function
+var Re_plot = function(dataset) {
+
+      xScale = d3.scaleTime()
+             .domain([
+                  d3.min(dataset, function(d){return d.date;}), 
+                    d3.max(dataset, function(d){return d.date;})
+              ])
+             .range([padding, width]);
+      
+      yScale = d3.scaleLinear()
+             .domain([d3.min(dataset, function(d){if(d.average >0) return d.average;}) - 10, 
+                  d3.max(dataset, function(d){return d.average;})])
+             .range([height-padding, 0]);
+
+      xAxis = d3.axisBottom()
+                .scale(xScale)
+                .ticks(10)
+                .tickFormat(formatTime);
+
+      yAxis = d3.axisLeft()
+              .scale(yScale)
+              .ticks(10);
+
+      // line generator
+      var line = d3.line()
+             .defined(function(d){ return d.average >= 0 && d.average < 350;})
+               .x(function(d){ return xScale(d.date); })
+               .y(function(d){ return yScale(d.average); });
+
+      var line_lim = d3.line()
+             .defined(function(d){ return d.average >= 350;})
+               .x(function(d){ return xScale(d.date); })
+               .y(function(d){ return yScale(d.average); });
+
+      // area generator
+      var area = d3.area()
+             .defined(function(d){ return d.average >= 0; })
+             .x(function(d){ return xScale(d.date); })
+             .y0(function(d){ return yScale.range()[0]; })
+             .y1(function(d){ return yScale(d.average); })
+
+      var area_danger = d3.area()
+             .defined(function(d){ return d.average >= 350; })
+             .x(function(d){ return xScale(d.date); })
+             .y0(function(d){ return yScale(350); })
+             .y1(function(d){ return yScale(d.average); })
+
+      // create SVG
+
+
+
+      // create line
+      
+
+      var line_down = d3.select(".line_down")
+           .datum(dataset)
+             .transition()
+             .duration(1000)
+           .attr("d", line);
+
+      var line_up = d3.select(".line_up")
+           .datum(dataset)
+           .transition()
+             .duration(1000)
+           .attr("d", line_lim);
+
+      var line_safe = d3.select("line.safe")
+                 .attr("class", "safe")
+                 .transition()
+                 .duration(500)
+                 .attr("x1", padding)
+                 .attr("x2", width)
+                 .attr("y1", yScale(350))
+                 .attr("y2", yScale(350));
+
+      // create text
+      var line_text = d3.select("text")
+                 .text("350 ppm limit")
+                 .transition()
+                 .duration(500)                
+                 .attr("x", padding)
+                 .attr("y", yScale(350) - 5)
+                 .attr("fill", "red")
+                 .attr("font-family", "sans-serif")
+
+      // create area
+      var area = d3.select(".area")
+               .datum(dataset)
+               .transition()
+                 .duration(1000)
+               .attr("d", area);
+
+      var area_danger = d3.select(".area_danger")
+                .datum(dataset)
+                  .transition()
+                    .duration(1000)
+                  .attr("d", area_danger);
+
+      // create xAxis
+      var xaxis = d3.select("g.xaxis")
+           .transition()
+             .duration(500)
+           .attr("class", "xaxis")
+           .attr("transform", "translate(0," + (height-padding) + ")")
+           .call(xAxis);
+
+        // create yAxis
+      var yaxis = d3.select("g.yaxis")
+           .transition()
+             .duration(500)
+           .attr("class", "yaxis")
+           .attr("transform", "translate(" + (padding-15) + ", 0)")
+           .call(yAxis);
+
+  };
+
+
+  // On.Click
+  d3.select("button#weekly").on("click", function(){
+    d3.csv("co2_weekly_clear.csv", rowConverter_weekly, function(error, d){
+      if(error){
+        console.log(error);
+      } else {
+        dataset_week = d;
+        Re_plot(dataset_week);
+      };
+    });
+  });
+
+  d3.select("button#monthly").on("click", function(){
+    d3.csv("co2_monthly_clear.csv", rowConverter_monthly, function(error, d){
+      if(error){
+        console.log(error);
+      } else {
+        dataset_month = d;
+        Re_plot(dataset_month);
+      };
+    });
+  });
+
+  d3.select("button#yearly").on("click", function(){
+    d3.csv("co2_yearly_clear.csv", rowConverter_yearly, function(error, d){
+      if(error){
+        console.log(error);
+      } else {
+        dataset_year = d;
+        Re_plot(dataset_year);
+      };
+    });
+  });
 		
 
 	</script>
