@@ -415,13 +415,13 @@ var Re_plot = function(dataset) {
       var line_down = d3.select(".line_down")
            .datum(dataset)
              .transition()
-             .duration(1000)
+             .duration(500)
            .attr("d", line);
 
       var line_up = d3.select(".line_up")
            .datum(dataset)
            .transition()
-             .duration(1000)
+             .duration(500)
            .attr("d", line_lim);
 
       var line_safe = d3.select("line.safe")
@@ -447,13 +447,13 @@ var Re_plot = function(dataset) {
       var area = d3.select(".area")
                .datum(dataset)
                .transition()
-                 .duration(1000)
+                 .duration(500)
                .attr("d", area);
 
       var area_danger = d3.select(".area_danger")
                 .datum(dataset)
                   .transition()
-                    .duration(1000)
+                    .duration(500)
                   .attr("d", area_danger);
 
       // create xAxis
