@@ -40,9 +40,6 @@
 
   .nav-item{
     font-size: 16px;
-
-
-
   }
 
 
@@ -93,6 +90,35 @@
     stroke-linecap: round;
     pointer-events: none;
   }
+
+    .line {
+      fill: none;
+      stroke: teal;
+      stroke-width: 1.5;
+    }
+    
+    .line_lim {
+      fill: none;
+      stroke: red;
+      stroke-width: 1.5;
+    }
+
+    .safe {
+      stroke: red;
+      stroke-dasharray: 2, 5;
+    }
+
+
+    .area {
+      fill: teal;
+    }
+
+
+    .area_danger {
+      fill: red;
+    }
+
+
 
 </style>
 
@@ -202,8 +228,6 @@
 
 
 <div class="col-sm-3 content" style="padding:0px;height:800px;"> 
-  
-  <svg width="1000" height="700"></svg>
 
 </div>
 
@@ -211,27 +235,137 @@
 
   <script type="text/javascript">
 
-//geography
-    var geo = d3.selectAll("svg");
-    var path = d3.geoPath();
 
-    d3.json("https://d3js.org/us-10m.v1.json", function(error, w){
-      if(error) throw error;
+  var width = 600;
+  var height = 500;
+  var padding = 50;
+  var dataset, xScale, yScale, xAxis, yAxis, line;  //Empty, for now
 
-      geo.append("g")
-         .attr("class", "states")
-         .selectAll("path")
-         .data(topojson.feature(w, w.objects.states).features)
-         .enter()
-         .append("path")
-         .attr("d", path);
+  var formatTime = d3.timeFormat("%Y");
+  var rowConverter = function(d){
+    return {
+      date: new Date(+d.Year, (+d.Month - 1)), 
+      average: parseFloat(d.average)
+    };
+  };
 
-      geo.append("path")
-         .attr("class", "state-borders")
-         .attr("d", path(topojson.mesh(w, us.objects.states, function(a, b){
-            return a !== b;
-         })))
-    });
+
+  d3.csv("co2_data_clear.csv", rowConverter, function(error, d){
+    if(error){
+      console.log(error);
+    } else {
+      
+      dataset = d;
+      //console.log(dataset);
+      //console.table(dataset, ["date", "average"]);
+
+      xScale = d3.scaleTime()
+             .domain([
+                  d3.min(dataset, function(d){return d.date;}), 
+                    d3.max(dataset, function(d){return d.date;})
+              ])
+             .range([padding, width]);
+      
+      yScale = d3.scaleLinear()
+             .domain([d3.min(dataset, function(d){if(d.average >0) return d.average;}) - 10, 
+                  d3.max(dataset, function(d){return d.average;})])
+             .range([height-padding, 0]);
+
+      xAxis = d3.axisBottom()
+                .scale(xScale)
+                .ticks(10)
+                .tickFormat(formatTime);
+
+      yAxis = d3.axisLeft()
+              .scale(yScale)
+              .ticks(10);
+
+      // line generator
+      var line = d3.line()
+             .defined(function(d){ return d.average >= 0 && d.average < 350;})
+               .x(function(d){ return xScale(d.date); })
+               .y(function(d){ return yScale(d.average); });
+
+      var line_lim = d3.line()
+             .defined(function(d){ return d.average >= 350;})
+               .x(function(d){ return xScale(d.date); })
+               .y(function(d){ return yScale(d.average); });
+
+      // area generator
+      var area = d3.area()
+             .defined(function(d){ return d.average >= 0; })
+             .x(function(d){ return xScale(d.date); })
+             .y0(function(d){ return yScale.range()[0]; })
+             .y1(function(d){ return yScale(d.average); })
+
+      var area_danger = d3.area()
+             .defined(function(d){ return d.average >= 350; })
+             .x(function(d){ return xScale(d.date); })
+             .y0(function(d){ return yScale(350); })
+             .y1(function(d){ return yScale(d.average); })
+
+
+      // create SVG
+      var svg = d3.select("body")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+      // create line
+      svg.append("path")
+         .datum(dataset)
+         .attr("class", "line")
+         .attr("d", line);
+
+      svg.append("path")
+         .datum(dataset)
+         .attr("class", "line line_lim")
+         .attr("d", line_lim);
+
+      svg.append("line")
+         .attr("class", "safe")
+         .attr("x1", padding)
+         .attr("x2", width)
+         .attr("y1", yScale(350))
+         .attr("y2", yScale(350));
+
+      // create text
+      svg.append("text")
+         .text("350 ppm limit")
+         .attr("x", padding)
+         .attr("y", yScale(350) - 5)
+         .attr("fill", "red")
+         .attr("font-family", "sans-serif")
+
+      // create area
+      svg.append("path")
+         .datum(dataset)
+         .attr("class", "area")
+         .attr("d", area);
+
+      svg.append("path")
+         .datum(dataset)
+         .attr("class", "area_danger")
+         .attr("d", area_danger);
+
+
+
+
+      // create xAxis
+      svg.append("g")
+            .attr("class", "xaxis")
+            .attr("transform", "translate(0," + (height-padding) + ")")
+            .call(xAxis);
+
+      // create yAxis
+      svg.append("g")
+            .attr("class", "yaxis")
+            .attr("transform", "translate(" + (padding-15) + ", 0)")
+            .call(yAxis);
+
+    };
+  });
+
 		
 
 	</script>
