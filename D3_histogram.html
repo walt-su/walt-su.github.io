@@ -456,7 +456,7 @@
 			//////// Del one data /////////
   			d3.select("button#del").on("click", function(){
 
-  				dataset3.shift();
+  				dataset3.shift(); // remove the first element
   				Xscale_or.domain(d3.range(dataset3.length))
   				Yscale_or.domain([0, d3.max(dataset3, function(d){ return d.value; })])
 
