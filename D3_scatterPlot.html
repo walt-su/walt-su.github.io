@@ -186,8 +186,8 @@
 
 
   <p>
-  	<input type="radio" name="filter" value="type_1" class="small" checked> Small <br>
-  	<input type="radio" name="filter" value="type_2" class="large"> Large <br>
+  	<input type="radio" name="filter" value="small" checked> Small <br>
+  	<input type="radio" name="filter" value="large"> Large <br>
   </p>
 
   <div class="col-sm-8 content" style="padding:0px;height:800px;"> 
@@ -367,10 +367,20 @@
 				   .call(yAxis);
 	
 		// using each()
-		d3.selectAll("input.small")
+		d3.selectAll("input")
 		  .on("click", function(){
 		  	var allCircles = d3.selectAll("circle")
-		  		allCircles.each(freakout_small);
+		  	var sizes = d3.select(this).node().value
+
+		  	switch(sizes){
+		  		case "small":
+		  			allCircles.each(freakout_small);
+		  			break;
+		  		case "large":
+		  			allCircles.each(freakout_large);
+		  			break;
+		  	};
+		  		
 		  });
 
 
@@ -385,13 +395,6 @@
 			  .attr("fill", colors[colorIndex])
 			  .attr("r", 10);	
 		};
-
-		d3.selectAll("input.large")
-		  .on("click", function(){
-		  	var allCircles = d3.selectAll("circle")
-		  		allCircles.each(freakout_large);
-		  });
-
 
 		var freakout_large = function(d, i){
 			var colors = d3.schemeCategory20;
