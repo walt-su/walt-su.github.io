@@ -359,13 +359,10 @@
 					.attr("fill", "white")
 					.attr("text-anchor", "middle");
 
-				
-
 				});
 
 			//////// change color /////////
 
-			
 			d3.selectAll("rect").on("mouseover", function(){
 				d3.select(this)
 				  .attr("fill", "orange");  
@@ -384,8 +381,6 @@
 				  .attr("fill", "red");  
 
 			});
-
-
 
 
 			//////// Add one more/////////
@@ -423,7 +418,6 @@
   						.attr("height", function(d){
   							return Yscale_or(d.value);
   						});
-
 
   				var	bar1 = rect.selectAll("rect")
 
@@ -484,7 +478,7 @@
 						.attr("fill", "white")
 						.attr("text-anchor", "middle");
 
-						//////// change color /////////
+						//////// change color after adding bars /////////
 
 						d3.selectAll("rect").on("mouseover", function(){
 							d3.select(this)
@@ -581,40 +575,40 @@
   			});
 
 
-  				var sort_order = false;
+			var sort_order = false;
 
-				var sortBars = function(){
+			var sortBars = function(){
 
-					sort_order = !sort_order
+				sort_order = !sort_order
 
-					rect.selectAll("rect")
-						.sort(function(a,b){
-							if(sort_order){
-								return	d3.ascending(a.value,b.value);	
-							} else {
-								return	d3.descending(a.value,b.value);	
-							};						
-						})
-						.transition()
-						.duration(1000)	
-						.attr("x", function(d, i){
-							return Xscale_or(i);
-						});
+				rect.selectAll("rect")
+					.sort(function(a,b){
+						if(sort_order){
+							return	d3.ascending(a.value,b.value);	
+						} else {
+							return	d3.descending(a.value,b.value);	
+						};						
+					})
+					.transition()
+					.duration(1000)	
+					.attr("x", function(d, i){
+						return Xscale_or(i);
+					});
 
-					rect.selectAll("text:not(.lim_text)")
-						.sort(function(a,b){
-							if(sort_order){
-								return	d3.ascending(a.value,b.value);	
-							} else {
-								return	d3.descending(a.value,b.value);	
-							};
-						})
-						.transition()
-						.duration(1000)	
-						.attr("x", function(d, i){
-							return Xscale_or(i) + Xscale_or.bandwidth()/2;
-						});
-				};
+				rect.selectAll("text:not(.lim_text)")
+					.sort(function(a,b){
+						if(sort_order){
+							return	d3.ascending(a.value,b.value);	
+						} else {
+							return	d3.descending(a.value,b.value);	
+						};
+					})
+					.transition()
+					.duration(1000)	
+					.attr("x", function(d, i){
+						return Xscale_or(i) + Xscale_or.bandwidth()/2;
+					});
+			};
 
 			//////// Order /////////
 			d3.select("button#sort").on("click", function(){
@@ -641,7 +635,7 @@
 		            .style("z-z-index", 100)
 
 			
-			//On change threshold color
+			//On.change threshold color
 			var thr_color = d3.select("input").on("change", function(){
 				var threshold_color = d3.select(this).node().value;
 					dataset3.push({key: 100, value: +threshold_color});
@@ -696,7 +690,7 @@
 
 			});
 
-
+			// limit line and text positions
 			var line_fun = function(threshold_color, Yscale_or){
 
 								var lim_line = rect.select("line")
